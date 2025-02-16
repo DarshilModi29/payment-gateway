@@ -1,8 +1,14 @@
 import React from 'react'
 import Cookies from "js-cookie";
 import { Col, Row } from 'reactstrap';
+import { useNavigate } from "react-router-dom";
+
 
 const Home = () => {
+    const navigate = useNavigate();
+    if (!Cookies.get("token")) {
+        navigate("/login");
+    }
     return (
         <div className="container mt-4">
             <h2 className="text-center" style={{ textTransform: "uppercase" }}>Welcome to express pay – Seamless Payments Made Simple!</h2>
