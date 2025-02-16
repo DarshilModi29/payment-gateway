@@ -2,6 +2,7 @@ const router = require("express").Router();
 const Auth = require("../middleware/Auth");
 const Users = require("../models/userSchema");
 const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 router.post("/api/register", async (req, res) => {
     try {
@@ -11,7 +12,7 @@ router.post("/api/register", async (req, res) => {
         if (isExist) {
             return res.status(400).json({ message: "Email already exist" });
         }
-        const user = await new Users({
+        const user = new Users({
             username,
             email,
             pan_number,

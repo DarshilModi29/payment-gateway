@@ -15,11 +15,13 @@ router.post("/api/make-transaction", Auth, async (req, res) => {
         });
         if (payment_method === "upi") {
             const { upi_id, mpin } = req.body;
-            const receiver = await Account.findOne({ upi_id });
+            const receiver = await Account.findOne({ upi_id: upi_id });
+            const senderMpin = await Account.findOne({ user: req.user._id });
+            console.log(senderMpin);
             if (!receiver) {
                 return res.status(404).json({ message: "User not found with this upi id" });
             }
-            const validate = await bcryptjs.compare(mpin, receiver.mpin);
+            const validate = await bcryptjs.compare(mpin, senderMpin.mpin);
             if (!validate) {
                 return res.status(401).json({ message: "Invalid mpin" });
             }

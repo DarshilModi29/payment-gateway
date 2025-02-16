@@ -8,8 +8,16 @@ const accountSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    upi_id: {
+        type: String,
+        required: true,
+        default: null
+    },
+    mpin: {
+        type: String, required: true
+    }
 }, { timestamps: true });
 
-const transactionModel = mongoose.model("TRANSACTION", accountSchema);
+const accountModel = mongoose.model("ACCOUNT", accountSchema);
 
-module.exports = transactionModel;
+module.exports = accountModel;
